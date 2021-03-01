@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour {
 
 	Animator myAnimator;
 
+    [SerializeField]
 	bool moveStop;
 
     public bool IsRightDirection

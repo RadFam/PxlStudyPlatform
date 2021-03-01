@@ -36,11 +36,6 @@ public class HealthController : MonoBehaviour {
 	{
 		currHealth -= redHealth;
 
-		if (gameObject.name == "Player")
-		{
-			Debug.Log("Player minus health: " + redHealth.ToString());
-		}
-
 		if (currHealth < 0)
 		{
 			currHealth = 0;
@@ -53,6 +48,8 @@ public class HealthController : MonoBehaviour {
 		if (gameObject.CompareTag("Enemy"))
         {
 			myVEC.MakeEnemyMinus(transform.position);
+			EnemyUIController eUIC = gameObject.GetComponent<EnemyUIController>();
+			eUIC.SetHealthRes(currHealth, maxHealth);
         }
 		if (currHealth == 0)
 		{
