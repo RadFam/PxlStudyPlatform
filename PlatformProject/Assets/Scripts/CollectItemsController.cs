@@ -21,15 +21,15 @@ public class CollectItemsController : MonoBehaviour {
 		//Debug.Log(col.gameObject.tag);
 		if (col.gameObject.CompareTag("Coin"))
 		{
+			Debug.Log("Coin is taken");
 			myCoinsCount++;
 			myUI.SetCoins(myCoinsCount);
-			Destroy(col.gameObject);
+			GameManager.inst.coinContainer[col.gameObject].OnTake();
 		}
 
 		if (col.gameObject.CompareTag("AidKit"))
 		{
-			myHealth.AddHealth(col.gameObject.GetComponent<HealthKitController>().GetHealth());
-			Destroy(col.gameObject);
+			myHealth.AddHealth(GameManager.inst.healthKitContainer[col.gameObject].GetHealth());
 		}
 	}
 }

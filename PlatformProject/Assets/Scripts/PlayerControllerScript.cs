@@ -12,7 +12,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	public Transform arrowPos;
 
 	GroundDetectionController GDC;
-
+	UIController myUI;
 	private PoolShootObjects poolShoot;
 	private Vector3 directionMove;
 	private Animator myAnimator;
@@ -21,6 +21,7 @@ public class PlayerControllerScript : MonoBehaviour {
 
 	bool isRightDirection;
 	bool canShoot;
+	bool canShootCor;
 	bool canMove;
 
 	public bool IsRightDirection
@@ -30,6 +31,7 @@ public class PlayerControllerScript : MonoBehaviour {
 
 	void Start()
 	{
+		myUI = FindObjectOfType<UIController>();
 		GDC = gameObject.transform.GetChild(1).gameObject.GetComponent<GroundDetectionController>();
 		directionMove = Vector3.zero;
 		myAnimator = gameObject.GetComponent<Animator>();
@@ -38,6 +40,7 @@ public class PlayerControllerScript : MonoBehaviour {
 
 		isRightDirection = true;
 		canShoot = false;
+		canShootCor = true;
 		canMove = false;
 	}
 	
@@ -74,6 +77,8 @@ public class PlayerControllerScript : MonoBehaviour {
 		}
 
 		myAnimator.SetFloat("Speed", Mathf.Abs(directionMove.x));
+
+		CheckForShootClick();
 	}
 
 	void Update()
@@ -84,34 +89,50 @@ public class PlayerControllerScript : MonoBehaviour {
 			myAnimator.SetTrigger("WasFall");
 		}
 		isJumping = isJumping && !GDC.onGround;
-		canShoot = !isJumping;
+		canShoot = GDC.onGround; 
 
 		if (Input.GetKeyDown(KeyCode.Space) && GDC.onGround)
 		{
 			isJumping = true;
-			canShoot = !isJumping;
+			canShoot = false;
 			myRigid.AddForce(Vector2.up * upForce, ForceMode2D.Impulse);
 			myAnimator.SetTrigger("WasJump");
 		}	
 
-		CheckForShootClick();
+		//CheckForShootClick();
 	}
 
 	void CheckForShootClick()
 	{
-		if (Input.GetMouseButtonDown(0) && canShoot)
+		if (Input.GetMouseButtonDown(0) && canShoot && canShootCor)
 		{
-			Debug.Log("Input.GetMouseButtonDown(0) " + Input.GetMouseButtonDown(0) + "  canShoot " + canShoot);
 			myAnimator.SetTrigger("IsArchering");
 		}
 	}
 
 	void CheckForShoot()
 	{
-		ArrowControl arrow = poolShoot.listFreeArrows[0].GetComponent<ArrowControl>();
-		arrow.gameObject.SetActive(true);
-		arrow.transform.position = arrowPos.position;
-		arrow.SetImpulse(Vector2.right, mySprRenderer.flipX ? -1 : 1);
+		if (poolShoot.listFreeArrows.Count > 0 && canShootCor)
+		{
+			ArrowControl arrow = poolShoot.listFreeArrows[0].GetComponent<ArrowControl>();
+			arrow.gameObject.SetActive(true);
+			arrow.transform.position = arrowPos.position;
+			arrow.SetImpulse(Vector2.right, mySprRenderer.flipX ? -1 : 1);
+			StartCoroutine(RechargeCororutine());
+		}
+	}
+
+	IEnumerator RechargeCororutine()
+	{
+		canShootCor = false;
+		myUI.OpenReload(true);
+		for (int i = 0; i <= 10; ++i)
+		{
+			myUI.SetReloadPart(i / 10.0f);
+			yield return new WaitForSeconds(0.05f);
+		}
+		canShootCor = true;
+		myUI.OpenReload(false);
 	}
 
 }

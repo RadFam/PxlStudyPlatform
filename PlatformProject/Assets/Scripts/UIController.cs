@@ -7,6 +7,9 @@ public class UIController : MonoBehaviour {
 
 	public Text coinsVol;
 	public Text healthVol;
+	public GameObject reloadPanel;
+	public Image reloadArea;
+
 	// Use this for initialization
 	void Start () {
 		//coinsVol.text = "COINS: 0";
@@ -21,5 +24,23 @@ public class UIController : MonoBehaviour {
 	public void SetHealth(int health)
 	{
 		healthVol.text = "HEALTH: " + health.ToString();
+	}
+
+	public void OpenReload(bool vol)
+	{
+		if (!vol)
+		{
+			reloadArea.fillAmount = 0.0f;
+		}
+		reloadPanel.SetActive(vol);
+		if (vol)
+		{
+			reloadArea.fillAmount = 0.0f;
+		}
+	}
+
+	public void SetReloadPart(float vol)
+	{
+		reloadArea.fillAmount = vol;
 	}
 }

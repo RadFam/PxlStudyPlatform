@@ -16,6 +16,7 @@ public class HealthController : MonoBehaviour {
 		currHealth = maxHealth;
 		myUI = FindObjectOfType<UIController>();
 		myVEC = FindObjectOfType<VisualEffectsController>();
+		GameManager.inst.healthContainer.Add(gameObject, this);
 	}
 	
 	public void AddHealth(int addHealth)
@@ -42,6 +43,7 @@ public class HealthController : MonoBehaviour {
 		}
         if (gameObject.CompareTag("Player"))
         {
+			GetComponent<Animator>().SetTrigger("IsWounded");
             myUI.SetHealth(currHealth);
 			myVEC.MakeMinus(transform.position);
         }
@@ -59,10 +61,8 @@ public class HealthController : MonoBehaviour {
 			}
 			if (gameObject.CompareTag("Enemy"))
 			{
-				//gameObject.GetComponent<PlayerCollisionDamageController>().StopCoroutineStatus = false;
 				Debug.Log("Enemy dies");
 				GameObject go = GameObject.Find("Player");
-				go.GetComponent<PlayerCollisionDamageController>().StopAttack();
 				Destroy(gameObject.transform.parent.gameObject);
 			}
 		}

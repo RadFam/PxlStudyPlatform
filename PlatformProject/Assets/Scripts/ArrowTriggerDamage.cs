@@ -7,6 +7,8 @@ public class ArrowTriggerDamage : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     int damage;
+    [SerializeField]
+    Collider2D myCollider;
 
     public int Damage
     {
@@ -25,8 +27,11 @@ public class ArrowTriggerDamage : MonoBehaviour
         if (HealthController != null)
         {
             HealthController.ReduceHealth(damage);
-            ArrowControl ac = GetComponent<ArrowControl>();
-            ac.StopArrow();
         }
+        
+        ArrowControl ac = GetComponent<ArrowControl>();
+        //myCollider.isTrigger = false;
+        Debug.Log(gameObject.name + " is triggered on " + other.gameObject.name);
+        ac.StopArrow();
     }
 }

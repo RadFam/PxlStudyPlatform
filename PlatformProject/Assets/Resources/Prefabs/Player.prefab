@@ -201,7 +201,6 @@ GameObject:
   - component: {fileID: 1028473604337816194}
   - component: {fileID: 1028473604701634889}
   - component: {fileID: 1028473604701634888}
-  - component: {fileID: 1028473604701634890}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -311,6 +310,7 @@ MonoBehaviour:
   sideVelosity: 5
   upForce: 8
   myRigid: {fileID: 1028473604337816198}
+  arrowPos: {fileID: 1796642142}
 --- !u!114 &1028473604337816197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,17 +395,3 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1028473604701634890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1028473604337816315}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71c1f3ef9745944d9119493c73efaed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
-  collisionTag: Enemy

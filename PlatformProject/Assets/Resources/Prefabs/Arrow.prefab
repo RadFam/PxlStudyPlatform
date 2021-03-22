@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1736360438660902375
 Transform:
   m_ObjectHideFlags: 0
@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolShoot: {fileID: 0}
   myRigidBody: {fileID: 1736360438660902369}
+  myCollider: {fileID: 1736360438660902368}
   mySpriteRndr: {fileID: 1736360438660902374}
   myForce: 30
   arrowLifeTime: 2
@@ -161,3 +162,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
+  myCollider: {fileID: 1736360438660902368}
