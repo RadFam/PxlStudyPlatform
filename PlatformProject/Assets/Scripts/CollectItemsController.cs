@@ -19,15 +19,15 @@ public class CollectItemsController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		//Debug.Log(col.gameObject.tag);
-		if (col.gameObject.CompareTag("Coin"))
+		if (col.gameObject.CompareTag("Coin") && !GameManager.inst.coinContainer[col.gameObject].IsTaken)
 		{
-			Debug.Log("Coin is taken");
-			myCoinsCount++;
-			myUI.SetCoins(myCoinsCount);
 			GameManager.inst.coinContainer[col.gameObject].OnTake();
+			//Debug.Log("Coin is taken " + col.gameObject.transform.parent.gameObject.name);
+			myCoinsCount++;
+			myUI.SetCoins(myCoinsCount);	
 		}
 
-		if (col.gameObject.CompareTag("AidKit"))
+		if (col.gameObject.CompareTag("AidKit") && !GameManager.inst.healthKitContainer[col.gameObject].IsTaken)
 		{
 			myHealth.AddHealth(GameManager.inst.healthKitContainer[col.gameObject].GetHealth());
 		}

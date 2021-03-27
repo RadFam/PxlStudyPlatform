@@ -32,12 +32,12 @@ public class ArrowControl : MonoBehaviour
 
     public void OnEnable() 
     {
-        Debug.Log(gameObject.name + " is OnEnabled");
+        //Debug.Log(gameObject.name + " is OnEnabled");
         poolShoot.listBusyArrows.Add(gameObject);
         poolShoot.listFreeArrows.RemoveAt(0);
         //myCollider.isTrigger = true;
         deactive = false;
-        Debug.Log("Free list: " + poolShoot.listFreeArrows.Count + "  Busy list:" + poolShoot.listBusyArrows.Count);
+        //Debug.Log("Free list: " + poolShoot.listFreeArrows.Count + "  Busy list:" + poolShoot.listBusyArrows.Count);
     }
 
     public void SetImpulse(Vector2 direction, int force)
@@ -64,17 +64,17 @@ public class ArrowControl : MonoBehaviour
         if (!deactive)
         {
             deactive = true;
-            Debug.Log(gameObject.name + " is OnDisabled");
+            //Debug.Log(gameObject.name + " is OnDisabled");
             poolShoot.listFreeArrows.Add(gameObject);
             poolShoot.listBusyArrows.RemoveAt(0);
-            Debug.Log("Free list: " + poolShoot.listFreeArrows.Count + "  Busy list:" + poolShoot.listBusyArrows.Count);
+            //Debug.Log("Free list: " + poolShoot.listFreeArrows.Count + "  Busy list:" + poolShoot.listBusyArrows.Count);
             gameObject.SetActive(false);
         }
     }
 
     public void StopArrow()
     {
-        Debug.Log(gameObject.name + " StopArrow() function");
+        //Debug.Log(gameObject.name + " StopArrow() function");
         StopCoroutine(ArrowLive());
         EndAll();
     }

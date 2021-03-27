@@ -10,6 +10,8 @@ public class HealthController : MonoBehaviour {
 	UIController myUI;
 	VisualEffectsController myVEC;
 
+	public Animator woundAnim;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -43,14 +45,15 @@ public class HealthController : MonoBehaviour {
 		}
         if (gameObject.CompareTag("Player"))
         {
-			GetComponent<Animator>().SetTrigger("IsWounded");
+			woundAnim.SetTrigger("IsWounded");
             myUI.SetHealth(currHealth);
 			myVEC.MakeMinus(transform.position);
         }
 		if (gameObject.CompareTag("Enemy"))
         {
+			woundAnim.SetTrigger("isWounded");
 			myVEC.MakeEnemyMinus(transform.position);
-			EnemyUIController eUIC = gameObject.GetComponent<EnemyUIController>();
+			EnemyUIController eUIC = gameObject.GetComponent<EnemyUIController>(); // Improve this place(!)
 			eUIC.SetHealthRes(currHealth, maxHealth);
         }
 		if (currHealth == 0)

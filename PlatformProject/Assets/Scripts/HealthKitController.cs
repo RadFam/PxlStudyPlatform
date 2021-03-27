@@ -8,13 +8,22 @@ public class HealthKitController : MonoBehaviour {
 	public int restoreHealth;
 	[SerializeField]
 	Animator myAnim;
+	bool isTaken;
+
+	public bool IsTaken
+	{
+		get {return isTaken;}
+	}
+
 	void Start() 
     {
+		isTaken = false;
         GameManager.inst.healthKitContainer.Add(gameObject, this);
     }
 
 	public int GetHealth()
 	{
+		isTaken = true;
 		myAnim.SetTrigger("AidKitTaken");
 		return restoreHealth;
 	}

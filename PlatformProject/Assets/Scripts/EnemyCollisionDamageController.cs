@@ -34,7 +34,7 @@ public class EnemyCollisionDamageController : MonoBehaviour {
 	{
 		if (col.gameObject.CompareTag(collisionTag))
 		{
-			Debug.Log("OnCollisionEnter2D" + "  name: " + gameObject.name);
+			//Debug.Log("OnCollisionEnter2D" + "  name: " + gameObject.name);
 			player = col.gameObject;
 			// Case 1 - enemy is behind player, enemy strikes back
 			if ((!myMoveControl.IsRightDirection && !playerControllerScript.IsRightDirection && gameObject.transform.position.x >= col.gameObject.transform.position.x) || 
@@ -111,7 +111,7 @@ public class EnemyCollisionDamageController : MonoBehaviour {
 	public void AttackPlayer()
 	{
 		player.GetComponent<HealthController>().ReduceHealth(damage);
-		Debug.Log("Case 6, damage: " + damage.ToString());
+		//Debug.Log("Case 6, damage: " + damage.ToString());
 	}
 
 	public void SetMoveStatus(bool val)
@@ -125,7 +125,7 @@ public class EnemyCollisionDamageController : MonoBehaviour {
 
 	public void SetMoveStatusInt(int val)
 	{
-		Debug.Log("SetMoveStatusInt was invoked");
+		//Debug.Log("SetMoveStatusInt was invoked");
 		if (val == 0)
 		{
 			SetMoveStatus(false);
