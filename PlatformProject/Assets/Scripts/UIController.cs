@@ -9,11 +9,13 @@ public class UIController : MonoBehaviour {
 	public Text healthVol;
 	public GameObject reloadPanel;
 	public Image reloadArea;
+	public GameMenuScript gameMenuScript;
 
 	// Use this for initialization
 	void Start () {
 		//coinsVol.text = "COINS: 0";
 		//healthVol.text = "HEALTH: 100";
+		gameMenuScript.gameObject.SetActive(false);
 	}
 	
 	public void SetCoins(int coins)
@@ -42,5 +44,10 @@ public class UIController : MonoBehaviour {
 	public void SetReloadPart(float vol)
 	{
 		reloadArea.fillAmount = vol;
+	}
+
+	public void OnMenuButtonClicked()
+	{
+		gameMenuScript.gameObject.SetActive(true);
 	}
 }
