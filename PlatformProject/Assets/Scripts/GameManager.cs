@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     public Dictionary<GameObject, HealthController> healthContainer;
     public Dictionary<GameObject, CoinController> coinContainer;
     public Dictionary<GameObject, HealthKitController> healthKitContainer;
+    public Dictionary<GameObject, BuffReciever> buffRecieverContainer;
+    public Dictionary<GameObject, ItemComponent> itemComponentContainer;
+
+    public PlayerInventory playerInventory;
+    public ItemBase itemDataBase;
 
     void Awake() 
     {
@@ -16,6 +21,12 @@ public class GameManager : MonoBehaviour
         healthContainer = new Dictionary<GameObject, HealthController>();
         coinContainer = new Dictionary<GameObject, CoinController>();
         healthKitContainer = new Dictionary<GameObject, HealthKitController>();
+        buffRecieverContainer = new Dictionary<GameObject, BuffReciever>();
+        itemComponentContainer = new Dictionary<GameObject, ItemComponent>();
+    }
+
+    void Start() {
+        Time.timeScale = 1;
     }
 
 }

@@ -19,6 +19,8 @@ public class PlayerControllerScript : MonoBehaviour {
 	private SpriteRenderer mySprRenderer;
 	private bool isJumping;
 
+	private BuffReciever myBuffReciever;
+
 	bool isRightDirection;
 	bool canShoot;
 	bool canShootCor;
@@ -42,6 +44,25 @@ public class PlayerControllerScript : MonoBehaviour {
 		canShoot = false;
 		canShootCor = true;
 		canMove = false;
+
+		myBuffReciever.OnBuffChanges += OnHealthChange;
+		myBuffReciever.OnBuffChanges += OnForceChange;
+		myBuffReciever.OnBuffChanges += OnDamageChange;
+	}
+
+	private void OnHealthChange()
+	{
+
+	}
+
+	private void OnForceChange()
+	{
+
+	}
+
+	private void OnDamageChange()
+	{
+
 	}
 	
 	// Update is called once per frame

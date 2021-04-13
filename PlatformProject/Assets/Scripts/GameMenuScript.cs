@@ -12,21 +12,27 @@ public class GameMenuScript : MonoBehaviour
 
     public void OnProceedClicked()
     {
+        Time.timeScale = 1;
         gameObject.SetActive(false);
     }
 
     public void OnSoundClicked()
     {
+        Time.timeScale = 1;
+        GameGlobalController.instance.OnOffSound();
         gameObject.SetActive(false);
     }
 
     public void OnMainMenuClicked()
     {
-        gameObject.SetActive(false);
+        Time.timeScale = 1;
+        GameGlobalController.instance.LoadGameScene("menuScene");
+        //gameObject.SetActive(false);
     }
 
     public void OnExitGameClicked()
     {
+        Time.timeScale = 1;
         gameObject.SetActive(false);
         Application.Quit();
     }

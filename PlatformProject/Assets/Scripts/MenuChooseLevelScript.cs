@@ -10,9 +10,27 @@ public class MenuChooseLevelScript : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChooseLevel(int numButton)
     {
-        
+        string sceneName = "";
+        if (numButton == 1)
+        {
+            sceneName = "mainScene";
+        }
+        if (numButton == 2)
+        {
+            sceneName = "mainScene_2";
+        }
+        if (numButton == 3)
+        {
+            sceneName = "mainScene_3";
+        }
+        if (numButton == 4)
+        {
+            sceneName = "mainScene_4";
+        }
+
+        gameObject.SetActive(false);
+        GameGlobalController.instance.LoadGameScene(sceneName);
     }
 }

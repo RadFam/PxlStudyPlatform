@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,7 +31,7 @@ public class ArrowTriggerDamage : MonoBehaviour
         
         ArrowControl ac = GetComponent<ArrowControl>();
         //myCollider.isTrigger = false;
-        Debug.Log(gameObject.name + " is triggered on " + other.gameObject.name);
+        //Debug.Log(gameObject.name + " is triggered on " + other.gameObject.name);
         ac.StopArrow();
     }
 }

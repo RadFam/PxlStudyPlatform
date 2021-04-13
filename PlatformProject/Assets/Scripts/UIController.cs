@@ -48,6 +48,7 @@ public class UIController : MonoBehaviour {
 
 	public void OnMenuButtonClicked()
 	{
+		Time.timeScale = 0;
 		gameMenuScript.gameObject.SetActive(true);
 	}
 }
