@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [SerializeField]
     private List<Item> items;
     public BuffReciever buffReciever;
 
@@ -19,8 +20,9 @@ public class PlayerInventory : MonoBehaviour
     // Start is called before the first frame update
     void OnTriggerEnter2D(Collider2D col) 
     {
-        if (GameManager.inst.itemComponentContainer.ContainsKey(col.gameObject))
+        if (GameManager.inst.itemComponentContainer.ContainsKey(col.gameObject) && !GameManager.inst.itemComponentContainer[col.gameObject].IsTaken)
         {
+            GameManager.inst.itemComponentContainer[col.gameObject].IsTaken = true;
             var itemComponent = GameManager.inst.itemComponentContainer[col.gameObject];
             items.Add(itemComponent.Item);
             itemComponent.SelfDestroy();

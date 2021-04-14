@@ -45,9 +45,9 @@ public class PlayerControllerScript : MonoBehaviour {
 		canShootCor = true;
 		canMove = false;
 
-		myBuffReciever.OnBuffChanges += OnHealthChange;
-		myBuffReciever.OnBuffChanges += OnForceChange;
-		myBuffReciever.OnBuffChanges += OnDamageChange;
+		//myBuffReciever.OnBuffChanges += OnHealthChange;
+		//myBuffReciever.OnBuffChanges += OnForceChange;
+		//myBuffReciever.OnBuffChanges += OnDamageChange;
 	}
 
 	private void OnHealthChange()
