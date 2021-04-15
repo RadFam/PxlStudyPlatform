@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     public Dictionary<GameObject, HealthKitController> healthKitContainer;
     public Dictionary<GameObject, BuffReciever> buffRecieverContainer;
     public Dictionary<GameObject, ItemComponent> itemComponentContainer;
-
     public PlayerInventory playerInventory;
+    public PlayerControllerScript playerController;
     public ItemBase itemDataBase;
 
     void Awake() 

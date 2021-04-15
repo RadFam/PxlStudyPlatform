@@ -18,7 +18,6 @@ public class PlayerControllerScript : MonoBehaviour {
 	private Animator myAnimator;
 	private SpriteRenderer mySprRenderer;
 	private bool isJumping;
-
 	private BuffReciever myBuffReciever;
 
 	bool isRightDirection;
@@ -26,9 +25,17 @@ public class PlayerControllerScript : MonoBehaviour {
 	bool canShootCor;
 	bool canMove;
 
+
+	int addDmg;
+
 	public bool IsRightDirection
 	{
 		get {return isRightDirection;}
+	}
+
+	public BuffReciever MyBuffReciever
+	{
+		get {return myBuffReciever;}
 	}
 
 	void Start()
@@ -45,24 +52,79 @@ public class PlayerControllerScript : MonoBehaviour {
 		canShootCor = true;
 		canMove = false;
 
-		//myBuffReciever.OnBuffChanges += OnHealthChange;
-		//myBuffReciever.OnBuffChanges += OnForceChange;
-		//myBuffReciever.OnBuffChanges += OnDamageChange;
+		myBuffReciever = GetComponent<BuffReciever>();
+		myBuffReciever.OnBuffChanges += OnHealthChange;
+		myBuffReciever.OnBuffChanges += OnForceChange;
+		myBuffReciever.OnBuffChanges += OnDamageChange;
+
+		GameManager.inst.playerController = this;
+		addDmg = 0;
 	}
 
 	private void OnHealthChange()
 	{
-
+		for (int i = 0; i < myBuffReciever.Buffs.Count; ++i)
+		{
+			if ((myBuffReciever.Buffs[i].type == BuffType.Armor) && !myBuffReciever.Buffs[i].isUsed)
+			{
+				myBuffReciever.Buffs[i].isUsed = true;
+				GameManager.inst.healthContainer[gameObject].AddHealth((int)myBuffReciever.Buffs[i].additiveBonus);
+			}
+		}
+		/*
+		foreach (Buff buff in myBuffReciever.Buffs)
+		{
+			if ((buff.type == BuffType.Armor) && !buff.isUsed)
+			{
+				buff.isUsed = false;
+				GameManager.inst.healthContainer[gameObject].AddHealth((int)buff.additiveBonus);
+			}
+		}
+		*/
 	}
 
 	private void OnForceChange()
 	{
-
+		for (int i = 0; i < myBuffReciever.Buffs.Count; ++i)
+		{
+			if ((myBuffReciever.Buffs[i].type == BuffType.Force) && !myBuffReciever.Buffs[i].isUsed)
+			{
+				myBuffReciever.Buffs[i].isUsed = true;
+				upForce += myBuffReciever.Buffs[i].additiveBonus;
+			}
+		}
+		/*
+		foreach (Buff buff in myBuffReciever.Buffs)
+		{
+			if ((buff.type == BuffType.Force) && !buff.isUsed)
+			{
+				buff.isUsed = false;
+				upForce += buff.additiveBonus;
+			}
+		}
+		*/
 	}
 
 	private void OnDamageChange()
 	{
-
+		for (int i = 0; i < myBuffReciever.Buffs.Count; ++i)
+		{
+			if ((myBuffReciever.Buffs[i].type == BuffType.Damage) && !myBuffReciever.Buffs[i].isUsed)
+			{
+				myBuffReciever.Buffs[i].isUsed = true;
+				addDmg = (int)myBuffReciever.Buffs[i].additiveBonus;
+			}
+		}
+		/*
+		foreach (Buff buff in myBuffReciever.Buffs)
+		{
+			if ((buff.type == BuffType.Damage) && !buff.isUsed)
+			{
+				buff.isUsed = false;
+				addDmg = (int)buff.additiveBonus;
+			}
+		}
+		*/
 	}
 	
 	// Update is called once per frame
@@ -138,6 +200,7 @@ public class PlayerControllerScript : MonoBehaviour {
 			ArrowControl arrow = poolShoot.listFreeArrows[0].GetComponent<ArrowControl>();
 			arrow.gameObject.SetActive(true);
 			arrow.transform.position = arrowPos.position;
+			arrow.AddDamage(addDmg);
 			arrow.SetImpulse(Vector2.right, mySprRenderer.flipX ? -1 : 1);
 			StartCoroutine(RechargeCororutine());
 		}

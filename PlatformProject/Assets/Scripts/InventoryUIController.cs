@@ -41,4 +41,15 @@ public class InventoryUIController : MonoBehaviour
             }
         }
     }
+
+    void OnDisable() 
+    {
+        if (cells != null)
+        {
+            for (int i = 0; i < cells.Length; ++i)
+            {
+                cells[i].ClearCell();
+            }
+        }    
+    }
 }

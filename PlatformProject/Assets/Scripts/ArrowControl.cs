@@ -24,6 +24,9 @@ public class ArrowControl : MonoBehaviour
 
     bool deactive;
 
+    [SerializeField]
+    ArrowTriggerDamage arrowTriggerDamage;
+
     public float MyForce
     {
         get {return myForce;}
@@ -77,5 +80,10 @@ public class ArrowControl : MonoBehaviour
         //Debug.Log(gameObject.name + " StopArrow() function");
         StopCoroutine(ArrowLive());
         EndAll();
+    }
+
+    public void AddDamage(int dmg)
+    {
+        arrowTriggerDamage.Damage += dmg;
     }
 }

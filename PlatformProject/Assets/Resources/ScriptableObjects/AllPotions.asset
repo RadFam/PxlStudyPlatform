@@ -23,7 +23,7 @@ MonoBehaviour:
     itemName: Force Potion
     description: Increase Players Force
     icon: {fileID: 21300000, guid: 549162b63fcfdd6429b6960cd6965548, type: 3}
-    value: 5
+    value: 2
     buffType: 1
   - id: 2
     itemName: Health Potion
@@ -32,9 +32,9 @@ MonoBehaviour:
     value: 25
     buffType: 2
   currItem:
-    id: 0
-    itemName: Attack Potion
-    description: Increase Attack Force
-    icon: {fileID: 21300000, guid: 480faaffa0ad44f4a8718ef07b9e33f5, type: 3}
-    value: 10
-    buffType: 0
+    id: 1
+    itemName: Force Potion
+    description: Increase Players Force
+    icon: {fileID: 21300000, guid: 549162b63fcfdd6429b6960cd6965548, type: 3}
+    value: 2
+    buffType: 1

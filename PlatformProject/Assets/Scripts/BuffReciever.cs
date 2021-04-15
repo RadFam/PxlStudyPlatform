@@ -7,6 +7,11 @@ public class BuffReciever : MonoBehaviour
 {
     List<Buff> buffs;
     public Action OnBuffChanges;
+
+    public List<Buff> Buffs
+    {
+        get{return buffs;}
+    }
     void Start()
     {
         GameManager.inst.buffRecieverContainer.Add(gameObject, this);

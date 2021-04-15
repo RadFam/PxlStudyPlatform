@@ -149,6 +149,7 @@ MonoBehaviour:
   mySpriteRndr: {fileID: 1736360438660902374}
   myForce: 30
   arrowLifeTime: 2
+  arrowTriggerDamage: {fileID: -2488877534851200606}
 --- !u!114 &-2488877534851200606
 MonoBehaviour:
   m_ObjectHideFlags: 0

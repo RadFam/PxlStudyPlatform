@@ -29,9 +29,21 @@ public class Cell : MonoBehaviour
         Buff buff = new Buff
         {
             type = item.BuffType,
-            additiveBonus = item.Value
+            additiveBonus = item.Value,
+            isUsed = false
         };
 
-        GameManager.inst.playerInventory.buffReciever.AddBuff(buff);
+        //GameManager.inst.buffRecieverContainer.buffReciever.AddBuff(buff);
+        GameManager.inst.playerController.MyBuffReciever.AddBuff(buff);
+
+        // Delete icon
+        icon.sprite = null;
+        item = null;
+    }
+
+    public void ClearCell()
+    {
+        icon.sprite = null;
+        item = null;
     }
 }

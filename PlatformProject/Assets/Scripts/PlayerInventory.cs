@@ -6,7 +6,7 @@ public class PlayerInventory : MonoBehaviour
 {
     [SerializeField]
     private List<Item> items;
-    public BuffReciever buffReciever;
+    //public BuffReciever buffReciever;
 
     public List<Item> Items
     {

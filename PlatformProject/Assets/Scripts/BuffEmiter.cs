@@ -30,6 +30,7 @@ public class Buff
     public BuffType type;
     public float additiveBonus;
     public float multipleBonus;
+    public bool isUsed;
 }
 
 public enum BuffType {Damage, Force, Armor}
