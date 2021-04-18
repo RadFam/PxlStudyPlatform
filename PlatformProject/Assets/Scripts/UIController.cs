@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour {
 	public Text healthVol;
 	public GameObject reloadPanel;
 	public Image reloadArea;
+	public Image reloadArea2;
 	public GameMenuScript gameMenuScript;
 	public InventoryUIController inventory;
 
@@ -45,9 +46,27 @@ public class UIController : MonoBehaviour {
 		}
 	}
 
+	public void OpenReload2(bool vol)
+	{
+		if (!vol)
+		{
+			reloadArea2.fillAmount = 0.0f;
+		}
+		if (vol)
+		{
+			reloadArea2.fillAmount = 0.0f;
+		}
+		reloadArea2.gameObject.SetActive(vol);
+	}
+
 	public void SetReloadPart(float vol)
 	{
 		reloadArea.fillAmount = vol;
+	}
+
+	public void SetReloadPart2(float vol)
+	{
+		reloadArea2.fillAmount = vol;
 	}
 
 	public void OnMenuButtonClicked()

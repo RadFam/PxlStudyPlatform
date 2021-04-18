@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControllerScript : MonoBehaviour {
 
 	// Use this for initialization
+	public static PlayerControllerScript instance {get; private set;}
 	public float sideVelosity = 3.0f;
 	public float upForce = 7.0f;
 
@@ -19,6 +20,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	private SpriteRenderer mySprRenderer;
 	private bool isJumping;
 	private BuffReciever myBuffReciever;
+	private UICharacterController myUICharControl;
 
 	bool isRightDirection;
 	bool canShoot;
@@ -38,6 +40,10 @@ public class PlayerControllerScript : MonoBehaviour {
 		get {return myBuffReciever;}
 	}
 
+	void Awake() 
+	{
+		instance = this;
+	}
 	void Start()
 	{
 		myUI = FindObjectOfType<UIController>();
@@ -61,6 +67,13 @@ public class PlayerControllerScript : MonoBehaviour {
 		addDmg = 0;
 	}
 
+	public void InitButtonController(UICharacterController uiControl)
+	{
+		myUICharControl = uiControl;
+		myUICharControl.UpButton.onClick.AddListener(Jump);
+		myUICharControl.FireButton.onClick.AddListener(CheckForShootClick);
+	}
+
 	private void OnHealthChange()
 	{
 		for (int i = 0; i < myBuffReciever.Buffs.Count; ++i)
@@ -71,16 +84,6 @@ public class PlayerControllerScript : MonoBehaviour {
 				GameManager.inst.healthContainer[gameObject].AddHealth((int)myBuffReciever.Buffs[i].additiveBonus);
 			}
 		}
-		/*
-		foreach (Buff buff in myBuffReciever.Buffs)
-		{
-			if ((buff.type == BuffType.Armor) && !buff.isUsed)
-			{
-				buff.isUsed = false;
-				GameManager.inst.healthContainer[gameObject].AddHealth((int)buff.additiveBonus);
-			}
-		}
-		*/
 	}
 
 	private void OnForceChange()
@@ -93,16 +96,6 @@ public class PlayerControllerScript : MonoBehaviour {
 				upForce += myBuffReciever.Buffs[i].additiveBonus;
 			}
 		}
-		/*
-		foreach (Buff buff in myBuffReciever.Buffs)
-		{
-			if ((buff.type == BuffType.Force) && !buff.isUsed)
-			{
-				buff.isUsed = false;
-				upForce += buff.additiveBonus;
-			}
-		}
-		*/
 	}
 
 	private void OnDamageChange()
@@ -115,23 +108,61 @@ public class PlayerControllerScript : MonoBehaviour {
 				addDmg = (int)myBuffReciever.Buffs[i].additiveBonus;
 			}
 		}
-		/*
-		foreach (Buff buff in myBuffReciever.Buffs)
-		{
-			if ((buff.type == BuffType.Damage) && !buff.isUsed)
-			{
-				buff.isUsed = false;
-				addDmg = (int)buff.additiveBonus;
-			}
-		}
-		*/
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
+		Move();
+		myAnimator.SetFloat("Speed", Mathf.Abs(directionMove.x));
 
+		//CheckForShootClick();
+	}
+
+	void Update()
+	{
+		myAnimator.SetBool("IsGrounded", GDC.onGround);
+		if(!isJumping && !GDC.onGround)
+		{
+			myAnimator.SetTrigger("WasFall");
+		}
+		isJumping = isJumping && !GDC.onGround;
+		canShoot = GDC.onGround; 
+#if UNITY_EDITOR
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Jump();
+		}
+#endif
+
+		/*
+		if (Input.GetKeyDown(KeyCode.Space) && GDC.onGround)
+		{
+			isJumping = true;
+			canShoot = false;
+			myRigid.AddForce(Vector2.up * upForce, ForceMode2D.Impulse);
+			myAnimator.SetTrigger("WasJump");
+		}	
+		*/
+		//CheckForShootClick();
+	}
+
+	void Jump()
+	{
+		if (GDC.onGround)
+		{
+			isJumping = true;
+			canShoot = false;
+			myRigid.AddForce(Vector2.up * upForce, ForceMode2D.Impulse);
+			myAnimator.SetTrigger("WasJump");
+		}	
+	}
+
+	void Move()
+	{
 		directionMove = Vector3.zero;
+
+#if UNITY_EDITOR
 		if (Input.GetKey(KeyCode.A))
 		{
 			directionMove = Vector3.left;
@@ -140,6 +171,22 @@ public class PlayerControllerScript : MonoBehaviour {
 		}	
 
 		if (Input.GetKey(KeyCode.D))
+		{
+			directionMove = Vector3.right;
+			isRightDirection = true;
+			//transform.Translate(Vector2.right * sideVelosity * Time.fixedDeltaTime);
+		}
+#endif
+
+
+		if (myUICharControl.LeftButton.IsPressed)
+		{
+			directionMove = Vector3.left;
+			isRightDirection = false;
+			//transform.Translate(Vector2.left * sideVelosity * Time.fixedDeltaTime);
+		}	
+
+		if (myUICharControl.RightButton.IsPressed)
 		{
 			directionMove = Vector3.right;
 			isRightDirection = true;
@@ -158,36 +205,11 @@ public class PlayerControllerScript : MonoBehaviour {
 		{
 			mySprRenderer.flipX = true;
 		}
-
-		myAnimator.SetFloat("Speed", Mathf.Abs(directionMove.x));
-
-		CheckForShootClick();
-	}
-
-	void Update()
-	{
-		myAnimator.SetBool("IsGrounded", GDC.onGround);
-		if(!isJumping && !GDC.onGround)
-		{
-			myAnimator.SetTrigger("WasFall");
-		}
-		isJumping = isJumping && !GDC.onGround;
-		canShoot = GDC.onGround; 
-
-		if (Input.GetKeyDown(KeyCode.Space) && GDC.onGround)
-		{
-			isJumping = true;
-			canShoot = false;
-			myRigid.AddForce(Vector2.up * upForce, ForceMode2D.Impulse);
-			myAnimator.SetTrigger("WasJump");
-		}	
-
-		//CheckForShootClick();
 	}
 
 	void CheckForShootClick()
 	{
-		if (Input.GetMouseButtonDown(0) && canShoot && canShootCor)
+		if (canShoot && canShootCor)
 		{
 			myAnimator.SetTrigger("IsArchering");
 		}
@@ -210,13 +232,16 @@ public class PlayerControllerScript : MonoBehaviour {
 	{
 		canShootCor = false;
 		myUI.OpenReload(true);
+		myUI.OpenReload2(true);
 		for (int i = 0; i <= 10; ++i)
 		{
 			myUI.SetReloadPart(i / 10.0f);
+			myUI.SetReloadPart2(i / 10.0f);
 			yield return new WaitForSeconds(0.05f);
 		}
 		canShootCor = true;
 		myUI.OpenReload(false);
+		myUI.OpenReload2(false);
 	}
 
 }
