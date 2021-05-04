@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour {
 
 	public Text coinsVol;
 	public Text healthVol;
+	public Image healthBar;
 	public GameObject reloadPanel;
 	public Image reloadArea;
 	public Image reloadArea2;
@@ -14,6 +15,9 @@ public class UIController : MonoBehaviour {
 	public InventoryUIController inventory;
 
 	bool invOpen;
+	float currHealth;
+	float nextHealth;
+	float delta = 0.01f;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +25,26 @@ public class UIController : MonoBehaviour {
 		//healthVol.text = "HEALTH: 100";
 		gameMenuScript.gameObject.SetActive(false);
 		invOpen = false;
+		currHealth = 1.0f;
+		nextHealth = 1.0f;
+	}
+
+	void Update()
+	{
+		if (nextHealth > currHealth)
+		{
+			currHealth += delta;
+		}
+		if (nextHealth < currHealth)
+		{
+			currHealth -= delta;
+		}
+		if (Mathf.Abs(currHealth - nextHealth) < delta)
+		{
+			currHealth = nextHealth;
+		}
+
+		healthBar.fillAmount = currHealth;
 	}
 	
 	public void SetCoins(int coins)
@@ -30,7 +54,9 @@ public class UIController : MonoBehaviour {
 
 	public void SetHealth(int health)
 	{
-		healthVol.text = "HEALTH: " + health.ToString();
+		//healthVol.text = "HEALTH: " + health.ToString();
+		nextHealth = health / 100.0f;
+		//healthBar.fillAmount = newVal;
 	}
 
 	public void OpenReload(bool vol)
