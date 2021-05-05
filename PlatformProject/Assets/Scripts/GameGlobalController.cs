@@ -45,12 +45,18 @@ public class GameGlobalController : MonoBehaviour
         if (scene.name == "menuScene")
         {
             MenuMainPanelScript menuMainPanelScript = FindObjectOfType<MenuMainPanelScript>();
-            menuMainPanelScript.gameObject.SetActive(false);
+            if (menuMainPanelScript != null)
+            {
+                menuMainPanelScript.gameObject.SetActive(false);
+            }
         }
         else
         {
             GameMenuScript gameMenuScript = FindObjectOfType<GameMenuScript>();
-            gameMenuScript.gameObject.SetActive(false);
+            if (gameMenuScript != null)
+            {
+                gameMenuScript.gameObject.SetActive(false);
+            }
         }
         
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(gameScene, LoadSceneMode.Single);

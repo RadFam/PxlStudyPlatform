@@ -12,7 +12,7 @@ public class GroundDetectionController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void OnCollisionEnter2D(Collision2D col)
+	void OnCollisionStay2D(Collision2D col)
 	{
 		if (col.gameObject.CompareTag("Platform"))
 		{

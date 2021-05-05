@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour {
 	public GameMenuScript gameMenuScript;
 	public InventoryUIController inventory;
 
+	public Text deathText;
+
 	bool invOpen;
 	float currHealth;
 	float nextHealth;
@@ -49,7 +51,8 @@ public class UIController : MonoBehaviour {
 	
 	public void SetCoins(int coins)
 	{
-		coinsVol.text = "COINS: " + coins.ToString();
+		//coinsVol.text = "COINS: " + coins.ToString();
+		coinsVol.text = coins.ToString();
 	}
 
 	public void SetHealth(int health)
@@ -105,5 +108,29 @@ public class UIController : MonoBehaviour {
 	{
 		invOpen = !invOpen;
 		inventory.gameObject.SetActive(invOpen);
+	}  
+	public void ShowDeathWindow()
+	{
+		deathText.gameObject.SetActive(true);
+		Color myColor = deathText.color;
+		deathText.color = new Color(myColor.r, myColor.g, myColor.b, 1.0f);
+		StartCoroutine(FadeToDeath());
+	}
+
+	IEnumerator FadeToDeath()
+	{
+		yield return new WaitForSeconds(2.0f);
+
+		Color myColor = deathText.color;
+		float alpha = 1.0f;
+		while (alpha > 0.02f)
+		{
+			alpha -= 0.02f;
+			deathText.color = new Color(myColor.r, myColor.g, myColor.b, alpha);
+			yield return new WaitForEndOfFrame();
+		}
+
+		deathText.gameObject.SetActive(false);
+		GameGlobalController.instance.LoadGameScene("menuScene");
 	}
 }

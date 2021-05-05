@@ -22,6 +22,9 @@ public class PlayerControllerScript : MonoBehaviour {
 	private BuffReciever myBuffReciever;
 	private UICharacterController myUICharControl;
 
+	[SerializeField]
+	Camera mainCam;
+
 	bool isRightDirection;
 	bool canShoot;
 	bool canShootCor;
@@ -121,6 +124,7 @@ public class PlayerControllerScript : MonoBehaviour {
 
 	void Update()
 	{
+		/*
 		myAnimator.SetBool("IsGrounded", GDC.onGround);
 		if(!isJumping && !GDC.onGround)
 		{
@@ -128,6 +132,7 @@ public class PlayerControllerScript : MonoBehaviour {
 		}
 		isJumping = isJumping && !GDC.onGround;
 		canShoot = GDC.onGround; 
+		*/
 #if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
@@ -149,17 +154,25 @@ public class PlayerControllerScript : MonoBehaviour {
 
 	void Jump()
 	{
-		if (GDC.onGround)
+		if (GDC.onGround && !isJumping)
 		{
-			isJumping = true;
-			canShoot = false;
+			//canShoot = false;
 			myRigid.AddForce(Vector2.up * upForce, ForceMode2D.Impulse);
 			myAnimator.SetTrigger("WasJump");
+			isJumping = true;
 		}	
 	}
 
 	void Move()
 	{
+		myAnimator.SetBool("IsGrounded", GDC.onGround);
+		if(!isJumping && !GDC.onGround)
+		{
+			myAnimator.SetTrigger("WasFall");
+		}
+		isJumping = isJumping && !GDC.onGround;
+		//canShoot = GDC.onGround; 
+		
 		directionMove = Vector3.zero;
 
 #if UNITY_EDITOR
@@ -209,9 +222,15 @@ public class PlayerControllerScript : MonoBehaviour {
 
 	void CheckForShootClick()
 	{
-		if (canShoot && canShootCor)
+		Debug.Log("CheckForShootClick() is invoked. GDC.onGround is: " + GDC.onGround + "  isJumping: " + isJumping);
+		canShoot = true;
+		if (!isJumping && GDC.onGround && canShootCor)
 		{
 			myAnimator.SetTrigger("IsArchering");
+		}
+		else
+		{
+			canShoot = false;
 		}
 	}
 
@@ -224,6 +243,7 @@ public class PlayerControllerScript : MonoBehaviour {
 			arrow.transform.position = arrowPos.position;
 			arrow.AddDamage(addDmg);
 			arrow.SetImpulse(Vector2.right, mySprRenderer.flipX ? -1 : 1);
+			canShoot = false;
 			StartCoroutine(RechargeCororutine());
 		}
 	}
@@ -242,6 +262,13 @@ public class PlayerControllerScript : MonoBehaviour {
 		canShootCor = true;
 		myUI.OpenReload(false);
 		myUI.OpenReload2(false);
+	}
+
+	void OnDestroy() 
+	{
+		mainCam.transform.parent = null;
+		mainCam.enabled = true;
+		myUI.ShowDeathWindow();	
 	}
 
 }
