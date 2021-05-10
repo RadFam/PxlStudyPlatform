@@ -11,7 +11,7 @@ public class VisualEffectsController : MonoBehaviour {
 	// Use this for initialization
 	public void MakePlus(Vector3 pos)
 	{
-		Debug.Log("Instantiate PLUS");
+		//Debug.Log("Instantiate PLUS");
 		Instantiate(plusPrefab, pos, Quaternion.identity);
 	}
 

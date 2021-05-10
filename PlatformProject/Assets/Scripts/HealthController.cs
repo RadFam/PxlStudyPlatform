@@ -60,7 +60,8 @@ public class HealthController : MonoBehaviour {
 		{
 			if (gameObject.CompareTag("Player"))
 			{
-				Destroy(gameObject);
+				gameObject.GetComponent<PlayerControllerScript>().OnDeath();
+				//Destroy(gameObject);
 			}
 			if (gameObject.CompareTag("Enemy"))
 			{

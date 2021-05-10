@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Platform
+  - Coin
+  - Enemy
+  - AidKit
+  - HorizontalMovingPlatform
+  - Portal
   layers:
   - Default
   - TransparentFX

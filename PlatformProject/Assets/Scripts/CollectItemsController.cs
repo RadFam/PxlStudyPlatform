@@ -31,5 +31,11 @@ public class CollectItemsController : MonoBehaviour {
 		{
 			myHealth.AddHealth(GameManager.inst.healthKitContainer[col.gameObject].GetHealth());
 		}
+
+		if (col.gameObject.CompareTag("Portal"))
+		{
+			Destroy(col.gameObject);
+			gameObject.GetComponent<PlayerControllerScript>().OnWinLevel();
+		}
 	}
 }

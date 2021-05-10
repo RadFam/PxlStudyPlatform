@@ -19,7 +19,6 @@ public class GroundDetectionController : MonoBehaviour {
 			onGround = true;
 		}
 	}
-
 	void OnCollisionExit2D(Collision2D col)
 	{
 		if (col.gameObject.CompareTag("Platform"))

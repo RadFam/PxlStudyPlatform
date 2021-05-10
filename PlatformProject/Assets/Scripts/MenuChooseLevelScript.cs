@@ -19,15 +19,15 @@ public class MenuChooseLevelScript : MonoBehaviour
         }
         if (numButton == 2)
         {
-            sceneName = "mainScene_2";
+            sceneName = "mainScene_1";
         }
         if (numButton == 3)
         {
-            sceneName = "mainScene_3";
+            sceneName = "mainScene_2";
         }
         if (numButton == 4)
         {
-            sceneName = "mainScene_4";
+            sceneName = "mainScene_3";
         }
 
         gameObject.SetActive(false);

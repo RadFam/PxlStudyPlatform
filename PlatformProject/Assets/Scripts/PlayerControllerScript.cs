@@ -264,11 +264,17 @@ public class PlayerControllerScript : MonoBehaviour {
 		myUI.OpenReload2(false);
 	}
 
-	void OnDestroy() 
+	public void OnDeath()
 	{
 		mainCam.transform.parent = null;
 		mainCam.enabled = true;
 		myUI.ShowDeathWindow();	
+		Destroy(gameObject);
+	}
+
+	public void OnWinLevel()
+	{
+		GameGlobalController.instance.LoadNextScene();
 	}
 
 }
