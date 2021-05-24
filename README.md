@@ -4,9 +4,10 @@ This is the training Unity project of making simple platfomer game, that used su
 
 1. Animated moves of player and game characters (enemies)
 2. Invetory and buff systems
-3. Visual effects, local canvas usage
-4. Basic UI menu controls
-5. Scene loading system
+3. World object with different properties (platform, damaging objects, collectable objects)
+4. Visual effects, local canvas usage
+5. Basic UI menu controls
+6. Scene loading system
 
 # Contents:
 
