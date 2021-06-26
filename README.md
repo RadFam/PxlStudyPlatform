@@ -14,14 +14,14 @@ This is the training Unity project of making simple platfomer game, that used su
 Unity source code with scripts, sprites, animations and game music
 
 # Demo gifs:
-![Image](ezgif.com-gif-maker_1.gif)
+<img src="/ezgif.com-gif-maker_1.gif" width="600" height="380">
 
-![Image](ezgif.com-gif-maker_2.gif)
+<img src="/ezgif.com-gif-maker_2.gif" width="600" height="380">
 
-![Image](ezgif.com-gif-maker_3.gif)
+<img src="/ezgif.com-gif-maker_3.gif" width="600" height="380">
 
-![Image](ezgif.com-gif-maker_4.gif)
+<img src="/ezgif.com-gif-maker_4.gif" width="600" height="380">
 
-![Image](ezgif.com-gif-maker_5.gif)
+<img src="/ezgif.com-gif-maker_5.gif" width="600" height="380">
 
-![Image](ezgif.com-gif-maker_6.gif)
+<img src="/ezgif.com-gif-maker_6.gif" width="600" height="380">
